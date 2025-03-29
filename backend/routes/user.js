@@ -16,16 +16,17 @@ console.log(JWT_SECRET);
        amount: zod.string(),
     })
 router.post("/signup", async(req, res)=>{
-
+    //console.log("signup endpoint");
+   console.log(req.body);
     const success = Userbody.safeParse(req.body);
-    
-    if(!success){console.log(failed);
+    console.log(success.data);
+    if(!success){;
         return res.status(411).json({
           message: "wrong input brother"
           
         })
     }
-    const doesexistuser = await prismaClient.User.findFirst({
+    const doesexistuser = await prismaClient.user.findFirst({
         where: {
             username: req.body.username,
             email: req.body.username,
@@ -51,7 +52,7 @@ router.post("/signup", async(req, res)=>{
      const userid = user.id;
      console.log(JWT_SECRET);
 
-     console.log(userid);
+     //console.log(userid);
      const token = jwt.sign({
         userid: userid
      }, JWT_SECRET);
@@ -76,7 +77,7 @@ const Signinbody = zod.object({
 
 router.post("/signin", async(req, res)=>
 {
-   
+    console.log(req.body);  
 const success = Signinbody.safeParse(req.body);
 if(!success){
     return res.status(411).json({

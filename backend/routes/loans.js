@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Middleware } = require("../middleware/middleware");
 const { prismaClient } = require("../db/db");
+const { PrismaClient } = require("@prisma/client");
+const { date } = require("zod");
 router.put("/lend", Middleware, async(req, res)=>{
     console.log("lendrouter")
     console.log("id in the lend endpoint "+ req.userId );
@@ -107,5 +109,35 @@ res.status(411).json({
   message: "Error while granting loan"
 })  
 } 
+})
+router.get("/get", Middleware, async(req, res)=>{
+  console.log("in get endpoint");
+try {
+  const LoanUsers = await prismaClient.loan.findMany({
+    where:{
+      takerid: null,
+      NOT: {lenderid: req.userId}         
+    },
+    include:{
+      lender: true
+    }
+  })
+  console.log(LoanUsers);
+  res.json({
+    data: LoanUsers.map(user=>(
+      {
+        loanid: user.id,
+        name: user.lender.firstname,
+        amount:user.amount,
+        interest:user.interest,
+        duration:user.duration,
+
+      }
+    ))
+  })
+} catch (error) {
+  console.log(error);
+}
+
 })
 module.exports = router;
