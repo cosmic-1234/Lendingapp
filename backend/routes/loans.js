@@ -6,6 +6,7 @@ const { PrismaClient } = require("@prisma/client");
 const { date } = require("zod");
 router.put("/lend", Middleware, async(req, res)=>{
     console.log("lendrouter")
+    console.log(req.body);
     console.log("id in the lend endpoint "+ req.userId );
     const Amount = await prismaClient.user.findFirst({
         
@@ -52,7 +53,7 @@ else{
              })
              if(Nostro){
                 res.json({
-                    message: "everything updated successfully"
+                    message: " Congratulations!...Loan has been posted successfully...borrower will come soon"
                 })
              }
           })
@@ -139,5 +140,33 @@ try {
   console.log(error);
 }
 
+})
+router.get("/top", Middleware, async(req, res)=>{
+    try {
+      const Top = await prismaClient.loan.findMany({
+        orderBy:{
+         amount: 'desc'
+        },
+        take: 3,
+        include:{
+         lender: true
+        }
+        
+     })
+     res.json({
+      data: Top.map(user=>({
+        loanid: user.id,
+        name: user.lender.firstname,
+        amount:user.amount,
+        interest:user.interest,
+        duration:user.duration,
+      }))
+     })
+    } catch (error) {
+      console.log(error);
+      res.json({
+        error: error
+      })
+    }
 })
 module.exports = router;

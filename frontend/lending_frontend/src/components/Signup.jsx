@@ -65,10 +65,13 @@ function SignupCard() {
                     <input onChange={e=>{Setemail(e.target.value)}} className='w-95 h-9 rounded-sm px-3  outline-none' type="text" required placeholder='Email' />
                     <input onChange={e=>{Setfirstname(e.target.value)}} className='w-95 h-9 rounded-sm px-3  outline-none' type="text" required placeholder='First Name'/>
                     <input onChange={e=>{Setlastname(e.target.value)}} className='w-95 h-9 rounded-sm px-3  outline-none' type="text" required placeholder='Last Name'/>
-                    <input onChange={e=>{Setsignamount(e.target.value)}} className='w-95 h-9 rounded-sm px-3  outline-none' type="text" required placeholder='Signup amount'/>
+                    <input onChange={e=>{Setsignamount(e.target.value)}} className='w-95 h-9 rounded-sm px-3  outline-none' type="text" required placeholder='Signup amount'inputMode="numeric"pattern="[0-9\s]{1,7}"
+  
+/>
                     <button className='bg-blue-300 w-95 h-12 rounded-2xl my-4 hover:cursor-pointer font-semibold hover:bg-blue-400 hover:duration-500'>Submit</button>
                     <div className='flex justify-center items-center gap-2'>
                        <p>Already a User? </p>
+                       
                        <button onClick={()=>navigate("/signin")} className='text-blue-500 hover:cursor-pointer hover:text-blue-700'> Login</button>
                     </div>
                     </div>

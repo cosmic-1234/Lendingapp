@@ -5,9 +5,9 @@ import help from "../assets/help.svg"
 import beta from "../assets/beta.svg"
  console.log(toolbar.visible);
 
-const Toolbar = ({sex})=>{
+const Toolbar = ({tool})=>{
     
-    if(sex){
+    if(tool){
         return (
             <>
             <div id="left main div" className=" bg-gradient-to-r from-gray-50 to-gray-100 w-2/11 flex flex-col">

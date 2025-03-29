@@ -15,7 +15,7 @@ function SigninCard() {
       return "password";
   
       }
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.defaults.headers.common['authorization'] = `Bearer ${localStorage.getItem('token')}`;
     
     const [username, Setusername] = useState();
     const[password, Setpassword] = useState();
@@ -31,6 +31,7 @@ function SigninCard() {
                
                    localStorage.setItem("token", res.data.token);
                    console.log(res.data);
+                   debugger;
                    navigate("/dashboard");
                 
                })
@@ -53,7 +54,7 @@ function SigninCard() {
             <div>
                 <form  action={SubmitRequest} method='get'>
                     <div className='flex flex-col bg-white gap-4 w-100 h-125 justify-center items-center rounded-4xl'>
-                        <p className='text-black font-bold text-3xl'>Get started today</p>
+                        <p className='text-black font-bold text-3xl'>Welcome back!!</p>
                     <input id='username'  onChange={e=>{Setusername(e.target.value)}} className='w-95 h-9 rounded-sm px-3 outline-none' type="text" required placeholder='Userame' />
                     {/* <input id='password'  onChange={e=>{Setpassword(e.target.value)}} className='w-95 h-9 rounded-sm px-3' type="text" required placeholder='Password' /> */}
                     <div className='flex  items-center justify-center'>
